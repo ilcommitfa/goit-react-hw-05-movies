@@ -23,7 +23,7 @@ export const Header = styled.header`
 
 export const StyledLink = styled(NavLink)`
   padding: 8px 16px;
-  border-radius: 4px;
+  border-radius: 18px;
   text-decoration: none;
   color: black;
   font-weight: 500;
