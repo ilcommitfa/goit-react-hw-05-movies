@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { searchMovies } from 'components/api';
+import { Button, Input, Icon, Wrapper } from './Movies.styled';
 
 const Movies = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -16,17 +17,23 @@ const Movies = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSearchSubmit}>
-        <input type="text" value={searchQuery} onChange={handleSearchInputChange} />
-        <button type="submit">Search</button>
-      </form>
+    <>
+      <Wrapper onSubmit={handleSearchSubmit}>
+        <Input 
+            type="text"
+            autoComplete="off"
+            autoFocus
+            value={searchQuery}
+            onChange={handleSearchInputChange}
+             />
+        <Button type="submit"><Icon /></Button>
+      </Wrapper>
       <ul>
         {movies.map((movie) => (
           <li key={movie.id}>{movie.title}</li>
         ))}
       </ul>
-    </div>
+    </>
   );
 };
 
