@@ -18,6 +18,7 @@ const Movies = () => {
 
   return (
     <>
+      <h1>Search movies</h1>
       <Wrapper onSubmit={handleSearchSubmit}>
         <Input 
             type="text"
