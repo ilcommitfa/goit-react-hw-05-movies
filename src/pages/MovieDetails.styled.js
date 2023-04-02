@@ -28,14 +28,6 @@ export const Info = styled.div`
   padding: 0 15px;
 `;
 
-export const InfoTitle = styled.h2`
-  font-size: 20px;
-`;
-
-export const InfoText = styled.p`
-  font-size: 16px;
-`;
-
 export const AddInfo = styled.div`
   display: flex;
   flex-direction: column;
