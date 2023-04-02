@@ -32,16 +32,16 @@ const MovieDetails = () => {
         <Movie>
           <Image src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title}/>
           <Info>
-          <h1>{movie.title}{' '}{movie.release_date
-            ? `(${movie.release_date.slice(0, 4)})`
-            : ''}</h1>
-          <p>Rating: {movie.vote_average}</p>
-          <h3>Description</h3>
-          <p>{movie.overview}</p>
-          <h3>Genres</h3>
-          {movie.genres 
-            ? (<p>{movie.genres.map(genre => genre.name).join(', ')}</p>)
-            : ("Sorry, info is abscent")}
+            <h1>{movie.title}{' '}{movie.release_date
+              ? `(${movie.release_date.slice(0, 4)})`
+              : ''}</h1>
+            <p>Rating: {movie.vote_average}</p>
+            <h3>Description</h3>
+            <p>{movie.overview}</p>
+            <h3>Genres</h3>
+            {movie.genres 
+              ? (<p>{movie.genres.map(genre => genre.name).join(', ')}</p>)
+              : ("Sorry, info is abscent")}
           </Info>
         </Movie>
 
