@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
-import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
+import { useParams, useLocation, Outlet } from 'react-router-dom';
 import { fetchMovieDetails } from 'components/api';
 import Chevron from 'react-chevron';
 import {Image, Info, List, Movie, AddInfo, LinkButton } from './MovieDetails.styled';
