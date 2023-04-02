@@ -1,34 +1,28 @@
-import { useState, useEffect, useRef } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
-import { fetchMovieDetails, fetchMovieCredits, fetchMovieReviews } from 'components/api';
-import Cast from '../components/Cast';
-import Reviews from '../components/Reviews';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
+import { fetchMovieDetails } from 'components/api';
 import Chevron from 'react-chevron';
-import {Image, Info, List, ListItem, Movie, AddInfo, LinkBack } from './MovieDetails.styled';
+import {Image, Info, List, Movie, AddInfo, LinkButton } from './MovieDetails.styled';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const location = useLocation();
   const [movie, setMovie] = useState({});
-  const [credits, setCredits] = useState([]);
-  const [reviews, setReviews] = useState([]);
   const backButton = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
-    const fetchData = async () => {
-      const movieDetails = await fetchMovieDetails(movieId);
-      setMovie(movieDetails);
-      const movieCredits = await fetchMovieCredits(movieId);
-      setCredits(movieCredits);
-      const movieReviews = await fetchMovieReviews(movieId);
-      setReviews(movieReviews);
-    };
-    fetchData();
-  }, [movieId]);
+    fetchMovieDetails(movieId)
+    .then(data => {
+      setMovie(data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}, [movieId]);
 
-  return (
-    <>
-    <LinkBack to={backButton.current}><Chevron direction={'left'}/>Back</LinkBack>
+return (
+  <main>
+    <LinkButton to={backButton.current}><Chevron direction={'left'}/>Back</LinkButton>
         <Movie>
           <Image src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title}/>
           <Info>
@@ -44,10 +38,21 @@ const MovieDetails = () => {
               : ("Sorry, info is abscent")}
           </Info>
         </Movie>
-
-      <Cast cast={credits} />
-      <Reviews reviews={reviews} />
-    </>
+        <AddInfo>
+          <h3>Additional information</h3>
+            <List>
+              <li>
+                <LinkButton to="cast">Cast</LinkButton>
+              </li>
+              <li>
+                <LinkButton to="reviews">Reviews</LinkButton>
+              </li>
+          </List>
+        </AddInfo>
+      <Suspense fallback={<div>Loading subpage...</div>}>
+        <Outlet />
+      </Suspense>
+  </main>
   );
 };
 

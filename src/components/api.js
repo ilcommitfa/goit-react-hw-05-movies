@@ -2,9 +2,9 @@ import axios from 'axios';
 
 const API_KEY = '1c946dce2b60cb636de6f72a25cb04da';
 
-export const fetchTrendingMovies = async (page=1) => {
+export const fetchTrendingMovies = async (page) => {
   const response = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}&page=${page}`);
-  return response.data.results;
+  return response.data;
 };
 
 export const searchMovies = async (query) => {

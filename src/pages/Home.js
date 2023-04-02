@@ -7,18 +7,27 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const location = useLocation();
 
   useEffect(() => {
-    const fetchMovies = async () => {
-      const trendingMovies = await fetchTrendingMovies(page);
-      setMovies(prevMovies => [...prevMovies, ...trendingMovies]);
-    };
-      fetchMovies();
+    fetchTrendingMovies(page)
+      .then(data => {
+        page === 1
+        ? setMovies(data.results)
+        : setMovies(prevMovies => [...prevMovies, ...data.results]);
+        setTotalPages(data.total_pages);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }, [page]);
 
   const loadMore = () => {
-    setPage(prevPage => prevPage + 1);
+    if(page < totalPages) {
+      setPage(prevPage => prevPage + 1);
+    } 
+    return;
   };
 
   return (
@@ -27,7 +36,7 @@ const Home = () => {
       <InfiniteScroll
         dataLength={movies.length}
         next={loadMore}
-        hasMore={true}
+        hasMore={totalPages <= 1 || totalPages === page ? false : true}
         loader={<h4>Loading...</h4>}
       >
         <List>

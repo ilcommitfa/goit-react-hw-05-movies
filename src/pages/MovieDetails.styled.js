@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const LinkBack = styled(Link)`
+export const LinkButton = styled(Link)`
   padding: 6px;
   margin-right: auto;
   color: #3f3f3f;
@@ -15,7 +15,7 @@ export const LinkBack = styled(Link)`
 
 export const Movie = styled.div`
   display: flex;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-right: auto;
 `;
 
@@ -45,5 +45,3 @@ export const List = styled.ul`
   padding: 0;
   list-style: none;
 `;
-
-export const ListItem = styled.li``;
