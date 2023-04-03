@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useParams, useLocation, Outlet } from 'react-router-dom';
 import { fetchMovieDetails } from 'components/api';
 import Chevron from 'react-chevron';
@@ -8,7 +8,6 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const location = useLocation();
   const [movie, setMovie] = useState({});
-  const backButton = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     fetchMovieDetails(movieId)
@@ -22,7 +21,7 @@ const MovieDetails = () => {
 
 return (
   <main>
-    <LinkButton to={backButton.current}><Chevron direction={'left'}/>Back</LinkButton>
+    <LinkButton to={location.state.from}><Chevron direction={'left'}/>Back</LinkButton>
         <Movie>
           <Image src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title}/>
           <Info>
