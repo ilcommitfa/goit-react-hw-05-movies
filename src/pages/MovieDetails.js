@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense, useRef } from 'react';
 import { useParams, useLocation, Outlet } from 'react-router-dom';
 import { fetchMovieDetails } from 'components/api';
 import Chevron from 'react-chevron';
@@ -8,6 +8,7 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const location = useLocation();
   const [movie, setMovie] = useState({});
+  const backLinkLocationRef = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     fetchMovieDetails(movieId)
@@ -20,8 +21,8 @@ const MovieDetails = () => {
 }, [movieId]);
 
 return (
-  <main>
-    <LinkButton to={location.state.from}><Chevron direction={'left'}/>Back</LinkButton>
+  <>
+      <LinkButton to={backLinkLocationRef.current}><Chevron direction={'left'}/>Back</LinkButton>
         <Movie>
           <Image src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title}/>
           <Info>
@@ -35,23 +36,23 @@ return (
             {movie.genres 
               ? (<p>{movie.genres.map(genre => genre.name).join(', ')}</p>)
               : ("Sorry, info is abscent")}
+          <AddInfo>
+            <h3>Additional information</h3>
+              <List>
+                <li>
+                  <LinkButton to="cast">Cast</LinkButton>
+                </li>
+                <li>
+                  <LinkButton to="reviews">Reviews</LinkButton>
+                </li>
+            </List>
+          </AddInfo>
           </Info>
         </Movie>
-        <AddInfo>
-          <h3>Additional information</h3>
-            <List>
-              <li>
-                <LinkButton to="cast">Cast</LinkButton>
-              </li>
-              <li>
-                <LinkButton to="reviews">Reviews</LinkButton>
-              </li>
-          </List>
-        </AddInfo>
       <Suspense fallback={<div>Loading subpage...</div>}>
         <Outlet />
       </Suspense>
-  </main>
+  </>
   );
 };
 

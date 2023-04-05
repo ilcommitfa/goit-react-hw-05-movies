@@ -21,7 +21,7 @@ export const Movie = styled.div`
 
 export const Image = styled.img`
   display: block;
-  width: 320px;
+  width: 300px;
 `;
 
 export const Info = styled.div`
@@ -32,7 +32,7 @@ export const AddInfo = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 50px;
   padding: 0 15px 15px 15px;
   border: 1px solid #3f3f3f;
   border-width: 1px 0 1px 0;
