@@ -12,7 +12,7 @@ const Movies = () => {
   const handleChange = (event) => {
     setSearchParams({query: event.target.value});
   };
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { results } = await searchMovies(query);

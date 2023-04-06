@@ -1,7 +1,5 @@
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
 import Layout from './Layout';
 
 const Home = lazy(() => import('../pages/Home'));
@@ -15,7 +13,7 @@ const App = () => {
   return (
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route index element={<LazyLoadComponent><Home /></LazyLoadComponent>} />
+          <Route index element={<Home />} />
           <Route path="movies" element={<Movies />} />
           <Route path="movies/:movieId" element={<MovieDetails />}>
             <Route path="cast" element={<Cast />} />
