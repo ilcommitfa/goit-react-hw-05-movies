@@ -4,7 +4,7 @@ import { fetchMovieDetails } from 'components/api';
 import Chevron from 'react-chevron';
 import {Image, Info, List, Movie, AddInfo, LinkButton } from './MovieDetails.styled';
 
-const MovieDetails = (onBack) => {
+const MovieDetails = () => {
   const { movieId } = useParams();
   const location = useLocation();
   const [movie, setMovie] = useState({});

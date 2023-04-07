@@ -19,12 +19,12 @@ const Movies = () => {
 
   useEffect(() => {
     if (query !== '') {
-    const fetchData = async () => {
-      const { results } = await searchMovies(query);
-      setMovies(results);
+      const fetchData = async () => {
+        const { results } = await searchMovies(query);
+        setMovies(results);
     };
-    fetchData();
-  }
+      fetchData();
+    }
   }, [query, location]);
 
   return (
