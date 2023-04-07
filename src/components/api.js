@@ -7,8 +7,8 @@ export const fetchTrendingMovies = async (page) => {
   return response.data;
 };
 
-export const searchMovies = async (query) => {
-  const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`);
+export const searchMovies = async (searchQuery) => {
+  const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchQuery}`);
   return response.data;
 };
 

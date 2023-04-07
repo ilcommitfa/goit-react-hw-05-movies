@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { searchMovies } from 'components/api';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { Button, Input, Icon, Wrapper, List, ListItem, Image, MovieTitle, Rating } from './Movies.styled';
@@ -7,17 +7,25 @@ const Movies = () => {
   const [movies, setMovies] = useState([]);
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get("query");
+  const query = searchParams.get("query") || '';
 
-  const handleChange = (event) => {
-    setSearchParams({query: event.target.value});
+  const handleChange = (e) => {
+    setSearchParams({query: e.target.value});
   };
-  
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const { results } = await searchMovies(query);
-    setMovies(results);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
   };
+
+  useEffect(() => {
+    if (query !== '') {
+    const fetchData = async () => {
+      const { results } = await searchMovies(query);
+      setMovies(results);
+    };
+    fetchData();
+  }
+  }, [query, location]);
 
   return (
     <>
